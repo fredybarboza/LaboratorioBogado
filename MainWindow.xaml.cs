@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LaboratorioBogado.Utils;
 using MySql.Data.MySqlClient;
+using LaboratorioBogado.Estudios;
+using System.Collections.ObjectModel;
 
 namespace LaboratorioBogado
 {
@@ -24,11 +26,12 @@ namespace LaboratorioBogado
     {
         ConnectionDB conDB = new ConnectionDB();
 
+        ObservableCollection<Hemograma> ListaHemograma = new ObservableCollection<Hemograma>();
+
         public MainWindow()
         {
             InitializeComponent();
             InitData();
-            
         }
 
         void InitData()
@@ -44,8 +47,6 @@ namespace LaboratorioBogado
             grid3.Visibility = Visibility.Collapsed;
             grid4.Visibility = Visibility.Collapsed;
 
-            DisabledSubOptions(false);
-
             FechaActualLabel.Content = DateTime.Now.ToString("dd-MM-yyyy");
 
             edadTextBox.IsReadOnly = false;
@@ -54,120 +55,88 @@ namespace LaboratorioBogado
 
             estudiosTabControl.Visibility = Visibility.Hidden;
 
-            
+            guardarButton.IsEnabled = false;
 
-            //DESACTIVA LOS DATOS PERSONALES
-            nombreTextBox.IsReadOnly = true;
-            nombreTextBox.Opacity = 0.3;
-            nombreLabel.Opacity = 0.3;
-            apellidoTextBox.IsReadOnly = true;
-            apellidoTextBox.Opacity = 0.3;
-            apellidoLabel.Opacity = 0.3;
-            fechaNacLabel.Opacity = 0.3;
-            fechaNacDatePicker.IsEnabled = false;
-            edadLabel.Opacity = 0.3;
-            edadTextBox.IsReadOnly = true;
-            edadTextBox.Opacity = 0.3;
-            femeninoRadioButton.Opacity = 0.3;
-            masculinoRadioButton.Opacity = 0.3;
-            sexoLabel.Opacity = 0.3;
+            buscarButton.IsEnabled = false;
+
+            hemogramaGroupBox.Visibility = Visibility.Hidden;
+
+            activarDesactivarDatos(true, 0.3);
+
+            initHemograma(true, 0.3);
+
+            //HISTORIAL
+            nombreHistorialTextBox.IsReadOnly = true;
+            apellidoHistorialTextBox.IsReadOnly = true;
+            fechaNacHistorialTextBox.IsReadOnly = true;
+            edadHistorialTextBox.IsReadOnly = true;
+
+            buttonBuscarHistorial.IsEnabled = false;
+
+            visibilityHistorialHemograma(false);
+
+
 
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        //HEMOGRAMA OPCION 1 CHECK BOX
         private void Opcion1CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            visibilityEstudios(true);
             tabItem1.Visibility = Visibility.Visible;
             grid1.Visibility = Visibility.Visible;
-            SelectedOptionsHemograma(true);
-            DisabledSubOptions(true);
-
-        }
-
-        //FUNCIONES PARA DESHABILITAR SUBOPCIONES
-        private void DisabledSubOptions(bool a)
-        {
-            hemoglobinaCheckBox.IsEnabled = a;
-            hematocritoCheckBox.IsEnabled = a;
-            grCheckBox.IsEnabled = a;
-            gbCheckBox.IsEnabled = a;
-            plaquetasCheckBox.IsEnabled = a;
-            eritroCheckBox.IsEnabled = a;
-            neCheckBox.IsEnabled = a;
-            linCheckBox.IsEnabled = a;
-            monoCheckBox.IsEnabled = a;
-            eosCheckBox.IsEnabled = a;
-            basoCheckBox.IsEnabled = a;
-        } 
-
-        //FUNCION PARA MARCAR-DESMARCAR OPCIONES DEL HEMOGRAMA
-        private void SelectedOptionsHemograma(bool a)
-        {
-            hemoglobinaCheckBox.IsChecked = a;
-            hematocritoCheckBox.IsChecked = a;
-            grCheckBox.IsChecked = a;
-            gbCheckBox.IsChecked = a;
-            plaquetasCheckBox.IsChecked = a;
-            eritroCheckBox.IsChecked = a;
-            neCheckBox.IsChecked = a;
-            linCheckBox.IsChecked = a;
-            monoCheckBox.IsChecked = a;
-            eosCheckBox.IsChecked = a;
-            basoCheckBox.IsChecked = a;
-        }
-
-        private void Opcion2CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            tabItem2.Visibility = Visibility.Visible;
-            grid2.Visibility = Visibility.Visible;
-        }
-
-        private void Opcion3CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            tabItem3.Visibility = Visibility.Visible;
-            grid3.Visibility = Visibility.Visible;
-        }
-
-        private void Opcion4CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            tabItem4.Visibility = Visibility.Visible;
-            grid4.Visibility = Visibility.Visible;
+            allOptionsHemograma(true);
+            initHemograma(false, 1.0);
         }
 
         private void Opcion1CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             tabItem1.Visibility = Visibility.Collapsed;
             grid1.Visibility = Visibility.Collapsed;
-            SelectedOptionsHemograma(false);
-            DisabledSubOptions(false);
+            allOptionsHemograma(false);
         }
 
-        private void Opcion2CheckBox_Unchecked(object sender, RoutedEventArgs e)
+
+        //METODO PARA INICIALIZAR HEMOGRAMA
+        private void initHemograma(bool a, double o)
         {
-            tabItem2.Visibility = Visibility.Collapsed;
-            grid2.Visibility = Visibility.Collapsed;
+            ActivarDesactivarHemoglobina(a, o);
+            ActivarDesactivarHematocrito(a, o);
+            ActivarDesactivarGR(a, o);
+            ActivarDesactivarGB(a, o);
+            ActivarDesactivarPlaquetas(a, o);
+            ActivarDesactivarEritro(a, o);
+            ActivarDesactivarNeutrofilos(a, o);
+            ActivarDesactivarLinfocitos(a, o);
+            ActivarDesactivarMonocitos(a, o);
+            ActivarDesactivarEosinofilos(a, o);
+            ActivarDesactivarBasofilos(a, o);
         }
 
-        private void Opcion3CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        //METODO PARA OCULTAR EL TABITEM1 Y EL GRID1
+        private void ocultarCargaHemograma()
         {
-            tabItem3.Visibility = Visibility.Collapsed;
-            grid3.Visibility = Visibility.Collapsed;
+            tabItem1.Visibility = Visibility.Collapsed;
+            grid1.Visibility = Visibility.Collapsed;
         }
 
-        private void Opcion4CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        //FUNCION PARA MARCAR-DESMARCAR SUBOPCIONES DEL HEMOGRAMA
+        private void allOptionsHemograma(bool a)
         {
-            tabItem4.Visibility = Visibility.Collapsed;
-            grid4.Visibility = Visibility.Collapsed;
+                hemoglobinaCheckBox.IsChecked = a;
+                hematocritoCheckBox.IsChecked = a;
+                grCheckBox.IsChecked = a;
+                gbCheckBox.IsChecked = a;
+                plaquetasCheckBox.IsChecked = a;
+                eritroCheckBox.IsChecked = a;
+                neCheckBox.IsChecked = a;
+                linCheckBox.IsChecked = a;
+                monoCheckBox.IsChecked = a;
+                eosCheckBox.IsChecked = a;
+                basoCheckBox.IsChecked = a;
         }
-
-
 
         //FUNCIONES PARA HABILITAR Y DESHABILITAR LAS OPCIONES INDIVIDUALES
-
         private void ActivarDesactivarHemoglobina(bool a, double b)
         {
             hemoglobinaTextBox.IsReadOnly = a;
@@ -264,21 +233,32 @@ namespace LaboratorioBogado
             u12.Opacity = b;
         }
 
-        //HEMOGLOBINA
-        private void HemoglobinaCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        //METODO PARA ACTIVAR PANEL DE ESTUDIOS DESDE SUBOPCIONES
+        private void activarPenel1()
         {
-            hemoglobinaTextBox.Text = "";
-            ActivarDesactivarHemoglobina(true, 0.3);
+            visibilityEstudios(true);
+            //ocultarCargaHemograma();
+            tabItem1.Visibility = Visibility.Visible;
+            grid1.Visibility = Visibility.Visible;
         }
 
+        //HEMOGLOBINA
         private void HemoglobinaCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarHemoglobina(false, 1.0);
+        }
+
+        private void HemoglobinaCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        { 
+            hemoglobinaTextBox.Text = "";
+            ActivarDesactivarHemoglobina(true, 0.3);
         }
 
         //HEMATOCRITO
         private void HematocritoCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarHematocrito(false, 1.0);
         }
 
@@ -291,6 +271,7 @@ namespace LaboratorioBogado
         //GLOBULOS ROJOS
         private void GrCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarGR(false, 1.0);
         }
 
@@ -303,6 +284,7 @@ namespace LaboratorioBogado
         //GLOBULOS BLANCOS
         private void GbCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarGB(false, 1.0);
         }
 
@@ -315,6 +297,7 @@ namespace LaboratorioBogado
         //PLAQUETAS
         private void PlaquetasCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarPlaquetas(false, 1.0);
         }
 
@@ -324,10 +307,10 @@ namespace LaboratorioBogado
             ActivarDesactivarPlaquetas(true, 0.3);
         }
 
-
         //ERITROSEDIMENTACION
         private void EritroCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarEritro(false, 1.0);
         }
 
@@ -341,6 +324,7 @@ namespace LaboratorioBogado
         //NEUTRÓFILOS
         private void NeCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarNeutrofilos(false, 1.0);
         }
 
@@ -353,6 +337,7 @@ namespace LaboratorioBogado
         //LINFOCITOS
         private void LinCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarLinfocitos(false, 1.0);
         }
 
@@ -365,6 +350,7 @@ namespace LaboratorioBogado
         //MONOCITOS
         private void MonoCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarMonocitos(false, 1.0);
         }
 
@@ -374,10 +360,10 @@ namespace LaboratorioBogado
             ActivarDesactivarMonocitos(true, 0.3);
         }
 
-
         //EOSINOFILOS
         private void EosCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarEosinofilos(false, 1.0);
         }
 
@@ -390,6 +376,7 @@ namespace LaboratorioBogado
         //BASOFILOS
         private void BasoCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            activarPenel1();
             ActivarDesactivarBasofilos(false, 1.0);
         }
 
@@ -415,16 +402,28 @@ namespace LaboratorioBogado
             }
         }
 
-
-
         //METODO PARA GUARDAR PACIENTE
         private void guardarPaciente()
         {
             string sql = "";
             string s = returnMF();
 
-            sql = "INSERT INTO `pacientes` (`ci`,`nombre`, `apellido`,`fecha_nacimiento`, `edad`, `sexo`) VALUES ('" + ciTextBox.Text + "','" + nombreTextBox.Text + "', '" + apellidoTextBox.Text + "', '" + fechaNacDatePicker.SelectedDate.ToString() + "', '" + edadTextBox.Text + "', '" + s + "')";
-            conDB.ExecuteSQL(sql);
+            MySqlDataReader reade = conDB.ListSql("select ci from pacientes where ci=" + ciTextBox.Text);
+            if (reade.Read()==false)
+            {
+                if (nombreTextBox.Text!=""&&apellidoTextBox.Text!=""&&fechaNacDatePicker.SelectedDate!=null&&edadTextBox.Text!="")
+                {
+                    if (masculinoRadioButton.IsChecked==true||femeninoRadioButton.IsChecked==true) {
+                        sql = "INSERT INTO `pacientes` (`ci`,`nombre`, `apellido`,`fecha_nacimiento`, `edad`, `sexo`) VALUES ('" + ciTextBox.Text + "','" + nombreTextBox.Text + "', '" + apellidoTextBox.Text + "', '" + fechaNacDatePicker.SelectedDate.ToString() + "', '" + edadTextBox.Text + "', '" + s + "')";
+                        conDB.ExecuteSQL(sql);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("complete todos los datos");
+                }
+                
+            }
         }
 
         //GUARDAR BUTTON
@@ -443,7 +442,7 @@ namespace LaboratorioBogado
         }
 
         //ACTIVAR Y DESACTIVAR CARGA DE DATOS PERSONALES
-        private void activarDesacticarDatos(bool a, double b)
+        private void activarDesactivarDatos(bool a, double b)
         {
             //nombre
             nombreLabel.Opacity = b;
@@ -462,12 +461,13 @@ namespace LaboratorioBogado
             masculinoRadioButton.Opacity = b;
             femeninoRadioButton.Opacity = b;
             //fecha_nacimiento
-            fechaNacLabel.Opacity = b;
+            fechaNacLabel.Opacity = b; 
 
             if (a == true)
             {
                 masculinoRadioButton.IsEnabled = false;
                 femeninoRadioButton.IsEnabled = false;
+                fechaNacDatePicker.IsEnabled = false;
             }
             else
             {
@@ -511,17 +511,13 @@ namespace LaboratorioBogado
 
             if (c == 1)
             {
-                activarDesacticarDatos(true, 1.0);
+                activarDesactivarDatos(true, 1.0);
             }
             else
             {
                 clearInput();
-                activarDesacticarDatos(false, 1.0);
-            }
-            
-            
-
-                
+                activarDesactivarDatos(false, 1.0);
+            }      
             
         }
 
@@ -543,29 +539,199 @@ namespace LaboratorioBogado
         {
             guardarButton.Visibility = Visibility.Hidden;
             guardarTodoButton.Visibility = Visibility.Visible;
-            visibilityEstudios(true);
+
+            hemogramaGroupBox.Visibility = Visibility.Visible;
+            
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
+            allOptionsHemograma(false);
             guardarTodoButton.Visibility = Visibility.Hidden;
             guardarButton.Visibility = Visibility.Visible;
+
+            hemogramaGroupBox.Visibility = Visibility.Hidden;
+            
+
+            opcion1CheckBox.IsChecked = false;
+
             visibilityEstudios(false);
+        }
+        //VALIDACION DE DATOS HEMOGRAMA
+        private int validacionHemograma()
+        {
+            int n = 0;
+            if (hemoglobinaCheckBox.IsChecked == true) { if (hemoglobinaTextBox.Text == ""){ n = 1;} }
+
+            if (hematocritoCheckBox.IsChecked == true) { if (hematocritoTextBox.Text == "") { n = 1; }}
+
+            if (grCheckBox.IsChecked == true) { if (grTextBox.Text == ""){ n = 1;} }
+
+            if (gbCheckBox.IsChecked == true) { if (gbTextBox.Text == "") { n = 1; } }
+
+            if (plaquetasCheckBox.IsChecked == true) { if (plaquetasTextBox.Text == "") { n = 1; } }
+
+            if(eritroCheckBox.IsChecked == true){ if (h1TextBox.Text==""||h2TextBox.Text==""){n = 1;}}
+
+            if (neCheckBox.IsChecked == true) { if (neuTextBox.Text == "") { n = 1; } }
+
+            if (linCheckBox.IsChecked==true) { if (linTextBox.Text == "") { n = 1; } }
+
+            if(monoCheckBox.IsChecked==true) { if (monoTextBox.Text == "") { n = 1; } }
+
+            if (eosCheckBox.IsChecked == true) { if (eoTextBox.Text == "") { n = 1; } }
+
+            if(basoCheckBox.IsChecked == true) { if (basTextBox.Text == "") { n = 1; } }
+
+            
+            return n;
+        }
+        //GUARDAR HEMOGRAMA
+        private void guardarHemograma()
+        {
+            int a = validacionHemograma();
+            if (hemoglobinaTextBox.Text!=""||hematocritoTextBox.Text!=""||grTextBox.Text!=""||gbTextBox.Text!=""||plaquetasTextBox.Text!=""||eritroCheckBox.IsChecked==true||neuTextBox.Text!=""||linTextBox.Text!=""||monoTextBox.Text!=""||eoTextBox.Text!=""||basTextBox.Text!="") {
+
+                if (a!=1) {
+                    string sql = "";
+                    sql = "INSERT INTO `hemogramas` (`id`, `hemoglobina`, `hematocrito`, `gr`, `gb`, `plaquetas`, `eritro1h`, `eritro2h`, `neutrofilos`, `linfocitos`, `monocitos`, `eosinofilos`, `basofilos`, `observacion`) VALUES ('" + ciTextBox.Text + "', '" + hemoglobinaTextBox.Text + "', '" + hematocritoTextBox.Text + "', '" + grTextBox.Text + "', '" + gbTextBox.Text + "', '" + plaquetasTextBox.Text + "', '" + h1TextBox.Text + "', '" + h2TextBox.Text + "', '" + neuTextBox.Text + "', '" + linTextBox.Text + "', '" + monoTextBox.Text + "', '" + eoTextBox.Text + "', '" + basTextBox.Text + "', '" + observacionTextBox.Text + "')";
+                    conDB.ExecuteSQL(sql);
+                }
+                else
+                {
+                    MessageBox.Show("FUNCIONA");
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("COMPLETE TODOS LOS CAMPOS");
+            }
         }
 
         //GUARDAR TODO BUTTON
         private void GuardarTodoButton_Click(object sender, RoutedEventArgs e)
         {
+            guardarHemograma();
             guardarPaciente();
-            string sql = "";
-            sql = "INSERT INTO `hemogramas` (`id`, `hemoglobina`, `hematocrito`, `gr`, `gb`, `plaquetas`, `eritro1h`, `eritro2h`, `neutrofilos`, `linfocitos`, `monocitos`, `eosinofilos`, `basofilos`, `observacion`) VALUES ('" + ciTextBox.Text + "', '" + hemoglobinaTextBox.Text + "', '" + hematocritoTextBox.Text + "', '" + grTextBox.Text + "', '" + gbTextBox.Text + "', '" + plaquetasTextBox.Text + "', '" + h1TextBox.Text + "', '" + h2TextBox.Text + "', '" + neuTextBox.Text + "', '" + linTextBox.Text + "', '" + monoTextBox.Text + "', '" + eoTextBox.Text + "', '" + basTextBox.Text + "', '" + observacionTextBox.Text +"')";
-            conDB.ExecuteSQL(sql);
         }
 
         private void CiTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-                activarDesacticarDatos(true, 0.3);
-                clearInput();
+            if (ciTextBox.Text == "")
+            {
+                guardarButton.IsEnabled = false;
+                guardarTodoButton.IsEnabled = false;
+                buscarButton.IsEnabled = false;
+            }
+            else
+            {
+                guardarButton.IsEnabled = true;
+                guardarTodoButton.IsEnabled = true;
+                buscarButton.IsEnabled = true;
+            }
+            activarDesactivarDatos(true, 0.3);
+            clearInput();
         }
+
+
+        /*------------HISTORIAL--------*/
+
+        private void clearDateHistorial()
+        {
+            nombreHistorialTextBox.Text = "";
+            apellidoHistorialTextBox.Text = "";
+            fechaNacHistorialTextBox.Text = "";
+            edadHistorialTextBox.Text = "";
+        }
+
+        private void visibilityHistorialHemograma(bool a)
+        {
+            if (a == false) {
+                historialTabControl.Visibility = Visibility.Hidden;
+                hemogramaHistorialTabItem.Visibility = Visibility.Hidden;
+                gridHemogramaHistorial.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                historialTabControl.Visibility = Visibility.Visible;
+                hemogramaHistorialTabItem.Visibility = Visibility.Visible;
+                gridHemogramaHistorial.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void getHistorialHemograma()
+        {
+            MySqlDataReader reade = conDB.ListSql("select id, hemoglobina, hematocrito, gr, gb, plaquetas, eritro1h, eritro2h, neutrofilos, linfocitos, monocitos, eosinofilos,  basofilos, observacion from hemogramas where id=" + ciHistorialTextBox.Text);
+
+                while (reade.Read())
+                {
+                    visibilityHistorialHemograma(true);
+
+                    Hemograma h = new Hemograma();
+                    h.Id = reade.GetValue(0).ToString();
+                    h.Hemoglobina = reade.GetValue(1).ToString();
+                    h.Hematocrito = reade.GetValue(2).ToString();
+                    h.Gr = reade.GetValue(3).ToString();
+                    h.Gb = reade.GetValue(4).ToString();
+                    h.Plaquetas = reade.GetValue(5).ToString();
+                    h.Eritro1h = reade.GetValue(6).ToString();
+                    h.Eritro2h = reade.GetValue(7).ToString();
+                    h.Neutrofilos = reade.GetValue(8).ToString();
+                    h.Linfocitos = reade.GetValue(9).ToString();
+                    h.Monocitos = reade.GetValue(10).ToString();
+                    h.Eosinofilos = reade.GetValue(11).ToString();
+                    h.Basofilos = reade.GetValue(12).ToString();
+                    h.Observacion = reade.GetValue(13).ToString();
+
+                    ListaHemograma.Add(h);
+
+                    hemogramaDataGrid.Items.Add(ListaHemograma);
+
+                }
+            
+        }
+
+        private void ButtonBuscarHistorial_Click(object sender, RoutedEventArgs e)
+        {
+            visibilityHistorialHemograma(false);
+
+            clearDateHistorial();
+
+            int n = 0;
+            MySqlDataReader reade = conDB.ListSql("select nombre, apellido, fecha_nacimiento, edad from pacientes where ci=" + ciHistorialTextBox.Text);
+            while (reade.Read())
+            {
+                nombreHistorialTextBox.Text = reade.GetValue(0).ToString();
+                apellidoHistorialTextBox.Text = reade.GetValue(1).ToString();
+                fechaNacHistorialTextBox.Text = reade.GetValue(2).ToString();
+                edadHistorialTextBox.Text = reade.GetValue(3).ToString();
+                n = 1;
+            }
+
+            getHistorialHemograma();
+
+            if (n==0)
+            {
+                MessageBox.Show("SIN COINCIDENCIAS");
+            }
+            
+            
+            
+        }
+
+        private void CiHistorialTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (ciHistorialTextBox.Text == "")
+            {
+                buttonBuscarHistorial.IsEnabled = false;
+            }
+            else
+            {
+                buttonBuscarHistorial.IsEnabled = true;
+            }
+        }
+
+        /*----------FIN HISTORIAL----*/
     }
 }
