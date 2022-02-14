@@ -82,14 +82,35 @@
                                 <Label Content="contenido 2" HorizontalAlignment="Left" Margin="256,146,0,0" VerticalAlignment="Top"/>
                             </Grid>
                         </TabItem>
-                        <TabItem x:Name="tabItem3" Header="OPCION 3 - TEXTO DE PRUEBA">
+                        <TabItem x:Name="tabItem3" Header="ANALISIS DE HECES" Height="22" Margin="-2,0,-2,0" VerticalAlignment="Bottom">
                             <Grid x:Name="grid3" Background="#FFE5E5E5">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="173*"/>
                                     <ColumnDefinition Width="585*"/>
-                                    <ColumnDefinition Width="42*"/>
-                                    <ColumnDefinition Width="262*"/>
+                                    <ColumnDefinition Width="131*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Content="contenido 3" HorizontalAlignment="Left" Margin="279,135,0,0" VerticalAlignment="Top"/>
+                                <GroupBox x:Name="analisisHecesGroupBox" Header="" Margin="10,0,25,40" Grid.ColumnSpan="3" BorderBrush="#FFC4CCD0">
+                                    <Grid x:Name="analisishecesGrid">
+                                        <Label Content="Heces Seriadas(Parasitologico)" HorizontalAlignment="Left" Margin="174,63,0,0" VerticalAlignment="Top" Height="30" Width="233" FontSize="16" FontWeight="Bold"/>
+                                        <Label x:Name="analisishecesLabel" Content="ANALISIS DE HECES" HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" FontSize="20"/>
+                                        <Label x:Name="vermesLabel" Content="Vermes" HorizontalAlignment="Left" Margin="228,126,0,0" VerticalAlignment="Top" Height="30" Width="132" FontSize="16"/>
+                                        <TextBox x:Name="vermesTextBox" HorizontalAlignment="Left" Margin="342,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
+                                        <Label x:Name="protozoariosLabel" Content="Protozoarios" HorizontalAlignment="Center" Margin="0,172,0,0" VerticalAlignment="Top" Height="28" Width="130"/>
+                                        <TextBox x:Name="protozoariosTextBox" HorizontalAlignment="Left" Margin="342,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
+                                        <Label x:Name="protozoariosLabel1" Content="Protozoarios" HorizontalAlignment="Left" Margin="232,172,0,0" VerticalAlignment="Top" Height="28" Width="105" FontSize="16"/>
+                                        <Label x:Name="frotismateriaLabel" Content="Frotis de Materia Fecal" HorizontalAlignment="Left" Margin="174,230,0,0" VerticalAlignment="Top" Height="30" Width="186" FontSize="16" FontWeight="Bold"/>
+                                        <Label x:Name="vermesfrotisLabel" Content="Vermes" HorizontalAlignment="Left" Margin="228,290,0,0" VerticalAlignment="Top" Height="30" Width="132" FontSize="16"/>
+                                        <TextBox x:Name="vermesfrotisTextBox" HorizontalAlignment="Left" Margin="342,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
+                                        <Label x:Name="protozoariosfrotisLabel" Content="Protozoarios" HorizontalAlignment="Left" Margin="228,341,0,0" VerticalAlignment="Top" Height="30" Width="132" FontSize="16"/>
+                                        <TextBox x:Name="protozoariosFrotisTextBox" HorizontalAlignment="Left" Margin="342,343,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
+                                        <Label x:Name="leucocitosFrotisLabel" Content="Leucocitos" HorizontalAlignment="Left" Margin="228,396,0,0" VerticalAlignment="Top" Height="30" Width="132" FontSize="16"/>
+                                        <TextBox x:Name="leucocitosfrotisTextBox" HorizontalAlignment="Left" Margin="342,396,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
+                                        <Label x:Name="hematiesfrotisLabel" Content="Hematíes" HorizontalAlignment="Left" Margin="228,450,0,0" VerticalAlignment="Top" Height="30" Width="132" FontSize="16"/>
+                                        <TextBox x:Name="hematiesfrotisTextBox" HorizontalAlignment="Left" Margin="342,450,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
+                                        <Label x:Name="rotavirusLabel" Content="Rotavirus" HorizontalAlignment="Left" Margin="174,514,0,0" VerticalAlignment="Top" Height="30" Width="186" FontSize="16" FontWeight="Bold"/>
+                                        <TextBox x:Name="rotavirusTextBox" HorizontalAlignment="Left" Margin="342,549,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
+                                    </Grid>
+                                </GroupBox>
                             </Grid>
                         </TabItem>
                         <TabItem x:Name="tabItem4" Header="OPCION 4 - TEXTO DE PRUEBA">

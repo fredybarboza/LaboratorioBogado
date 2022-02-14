@@ -20,3 +20,25 @@ C:\Users\user\Desktop\LaboratorioBogado\bin\Debug\Ubiety.Dns.Core.dll
 C:\Users\user\Desktop\LaboratorioBogado\bin\Debug\Renci.SshNet.dll
 C:\Users\user\Desktop\LaboratorioBogado\bin\Debug\MySql.Data.xml
 C:\Users\user\Desktop\LaboratorioBogado\obj\Debug\LaboratorioBogado.csproj.CopyComplete
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\bin\Debug\LaboratorioBogado.exe.config
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\bin\Debug\LaboratorioBogado.exe
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\bin\Debug\LaboratorioBogado.pdb
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\bin\Debug\Google.Protobuf.dll
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\bin\Debug\Renci.SshNet.dll
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\bin\Debug\MySql.Data.xml
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.csproj.AssemblyReference.cache
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.csproj.SuggestedBindingRedirects.cache
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\MainWindow.g.cs
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\App.g.cs
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado_MarkupCompile.cache
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado_MarkupCompile.lref
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\MainWindow.baml
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.g.resources
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.Properties.Resources.resources
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.csproj.GenerateResource.cache
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.csproj.CoreCompileInputs.cache
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.csproj.CopyComplete
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.exe
+C:\Users\samu\Desktop\Semestre 8\LaboratorioBogado\obj\Debug\LaboratorioBogado.pdb
